@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import innerText from 'react-innertext';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyIcon } from '../core/icons';
 
 const StickyWrapper = styled.div`
   position: sticky;
@@ -65,6 +68,7 @@ const CodeSampleTopbar = styled.div`
 
 const ResponseTopbar = styled.div`
   display: flex;
+  justify-content: space-between;
   padding: 5px 15px;
   background-color: #dee5e8;
   border-radius: 8px 8px 0 0;
@@ -140,6 +144,28 @@ export const FixedTdWidth = styled.div`
   }
 `;
 
+export const CopyToClipboardIconWrapper = styled.div`
+:hover {
+  cursor: pointer
+}
+`;
+
+export const CopyToClipboardIcon = ({ text }) => {
+  //const [copiedText, setCopiedText] = useState(text); // change to bool
+
+  const handleCopy = () => {
+    // display info it's copied
+  };
+
+  return (
+    <CopyToClipboardIconWrapper>
+      <CopyToClipboard onCopy={handleCopy} text={text}>
+        <CopyIcon />
+      </CopyToClipboard>
+    </CopyToClipboardIconWrapper>
+  );
+};
+
 export const CodeSample = ({ path, children }) => {
   const childrenArray = React.Children.toArray(children);
   const count = React.Children.count(children);
@@ -153,6 +179,7 @@ export const CodeSample = ({ path, children }) => {
       {path && (
         <CodeSampleTopbar>
           <code>{path}</code>
+          <CopyToClipboardIcon text={innerText(selectedChild)} />
           {count > 1 && (
             <SelectLanguage onChange={e => setSample(e.target.value)}>
               {childrenArray.map(children => (
@@ -170,9 +197,10 @@ export const CodeSample = ({ path, children }) => {
 };
 
 export const CodeResponse = ({ title = "Response", children }) => {
+  console.log('c', children)
   return (
     <CodeResponseWrapper>
-      {title && <ResponseTopbar>{title}</ResponseTopbar>}
+      {title && <ResponseTopbar>{title} <CopyToClipboardIcon text={innerText(children)} /></ResponseTopbar>}
       <Body>{children}</Body>
     </CodeResponseWrapper>
   );
@@ -180,6 +208,6 @@ export const CodeResponse = ({ title = "Response", children }) => {
 
 export const Code = ({ children }) => (
   <CodeWrapper>
-    <StickyWrapper>{children}</StickyWrapper>
+    <StickyWrapper>{children} </StickyWrapper>
   </CodeWrapper>
 );
