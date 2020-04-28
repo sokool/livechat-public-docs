@@ -89,6 +89,11 @@ The table shows scopes dependency of accessing chat parts:
 
 ### Agents scopes
 
+<Scopes
+  title="Agents scopes"
+  scopes="agents--my:rw,agents--all:rw,access_rules:ro"
+/>
+
 | Scope             | role          | Description                                              |
 | ----------------- | ------------- | -------------------------------------------------------- |
 | `agents--my:rw`   | normal        | Write permission for my profile configuration            |
@@ -351,19 +356,19 @@ The **Message** event contains text message to other chat users.
 
 ### Request
 
-| Field                | Required | Data type | Notes                                                                                                                         |
-| -------------------- | -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `custom_id`          | no       | `string`  |                                                                                                                               |
+| Field                | Required | Data type | Notes                                                                                                                        |
+| -------------------- | -------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `custom_id`          | no       | `string`  |                                                                                                                              |
 | `text`               | yes      | `string`  | Max. raw text size is 16 KB (one UTF-8 char like emoji 😁 can use up to 4 B); to send more, split text into several messages. |
-| `type`               | yes      | `string`  | `message`                                                                                                                     |
-| `recipients`         | yes      | `string`  | Possible values: `all` (default), `agents`                                                                                    |
-| `properties`         | no       | `object`  | [Properties](#properties)                                                                                                     |
-| `postback`           | no       | `object`  | Indicates that the message event was generated in response to a rich message event.                                           |
-| `postback.id`        | yes      | `string`  | ID of the postback from the rich message event.                                                                               |
-| `postback.thread_id` | yes      | `string`  | ID of the thread with the rich message event.                                                                                 |
-| `postback.event_id`  | yes      | `string`  | ID of the rich message event.                                                                                                 |
-| `postback.type`      | no       | `string`  | Should be used together with `postback.value` (when  one of them is present, the other is required).                                                                                |
-| `postback.value`     | no       | `string`  | Should be used together with `postback.type` (when  one of them is present, the other is required).                                                                                 |
+| `type`               | yes      | `string`  | `message`                                                                                                                    |
+| `recipients`         | yes      | `string`  | Possible values: `all` (default), `agents`                                                                                   |
+| `properties`         | no       | `object`  | [Properties](#properties)                                                                                                    |
+| `postback`           | no       | `object`  | Indicates that the message event was generated in response to a rich message event.                                          |
+| `postback.id`        | yes      | `string`  | ID of the postback from the rich message event.                                                                              |
+| `postback.thread_id` | yes      | `string`  | ID of the thread with the rich message event.                                                                                |
+| `postback.event_id`  | yes      | `string`  | ID of the rich message event.                                                                                                |
+| `postback.type`      | no       | `string`  | Should be used together with `postback.value` (when  one of them is present, the other is required).                         |
+| `postback.value`     | no       | `string`  | Should be used together with `postback.type` (when  one of them is present, the other is required).                          |
 
 ### Response
 
@@ -423,48 +428,48 @@ Rich message (RM) event contains a rich message data structure. [Read more](/ext
 
 ### Request
 
-| Field                            | Required | Data type | Notes                                                                                             |
-| -------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------------- |
-| `custom_id`                      | no       | `string`  | You can give your RM a custom ID.                                                                 |
-| `type`                           | yes      | `string`  | Event type: `rich_message`                                                                        |
-| `recipients`                     | yes      | `string`  | Those who can display the rich message: `all` (default) or `agents`                               |
-| `properties`                     | no       | `object`  | The [properties](#properties) data structure                                                      |
-| `template_id`                    | yes      | `string`  | Defines how every Rich Message will be presented. Values: `cards`, `sticker`, or `quick_replies`. |
-| `elements`                       | no       | `array`   | Can contain up to 10 `element` objects.                                                           |
-| `elements.title`                 | yes      | `string`  | Displays formatted text on RMs.                                                                   |
-| `elements.subtitle`              | yes      | `string`  | Displays formatted text on RMs.                                                                   |
-| `elements.image`                 | yes      | `image`   | Displays images on RMs. Required param: `url`; Optional params: `name`, `content_type`, `size`, `width`, `height`.|
-| `elements.buttons`               | no       | `array`   | Displays buttons. Can contain up to 13 `button` objects.                                          |
-| `elements.buttons.text`          | yes      | `string`  | Text displayed on a button.                                                                       |
-| `elements.buttons.type`          | yes      | `array`   | Defines the behavior after a user clicks the button. Should be used together with `elements.buttons.value`. Possible values: `webview`, `message`, `url`, `phone`. [More...](/extending-ui/extending-chat-widget/rich-messages/#getting-started)  |
-| `elements.buttons.value`         | yes      | `string`  | Should be used together with `elements.buttons.type`.                                             |
-| `elements.buttons.webview_height`| yes      | `string`  | Required only for the `webview` button`type`. Possible values: `compact`, `full`, `tall`.         |
-| `elements.buttons.postback_id`   | yes      | `string`  | A description of the sent action. Describes the action sent via `send_rich_message_postback`. [More...](/extending-ui/extending-chat-widget/rich-messages/#getting-started) |
-| `elements.buttons.user_ids`      | yes      | `array`   | Describes users that sent the postback with `"toggled": true`.|
+| Field                             | Required | Data type | Notes                                                                                                                                                                                                                                            |
+| --------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `custom_id`                       | no       | `string`  | You can give your RM a custom ID.                                                                                                                                                                                                                |
+| `type`                            | yes      | `string`  | Event type: `rich_message`                                                                                                                                                                                                                       |
+| `recipients`                      | yes      | `string`  | Those who can display the rich message: `all` (default) or `agents`                                                                                                                                                                              |
+| `properties`                      | no       | `object`  | The [properties](#properties) data structure                                                                                                                                                                                                     |
+| `template_id`                     | yes      | `string`  | Defines how every Rich Message will be presented. Values: `cards`, `sticker`, or `quick_replies`.                                                                                                                                                |
+| `elements`                        | no       | `array`   | Can contain up to 10 `element` objects.                                                                                                                                                                                                          |
+| `elements.title`                  | yes      | `string`  | Displays formatted text on RMs.                                                                                                                                                                                                                  |
+| `elements.subtitle`               | yes      | `string`  | Displays formatted text on RMs.                                                                                                                                                                                                                  |
+| `elements.image`                  | yes      | `image`   | Displays images on RMs. Required param: `url`; Optional params: `name`, `content_type`, `size`, `width`, `height`.                                                                                                                               |
+| `elements.buttons`                | no       | `array`   | Displays buttons. Can contain up to 13 `button` objects.                                                                                                                                                                                         |
+| `elements.buttons.text`           | yes      | `string`  | Text displayed on a button.                                                                                                                                                                                                                      |
+| `elements.buttons.type`           | yes      | `array`   | Defines the behavior after a user clicks the button. Should be used together with `elements.buttons.value`. Possible values: `webview`, `message`, `url`, `phone`. [More...](/extending-ui/extending-chat-widget/rich-messages/#getting-started) |
+| `elements.buttons.value`          | yes      | `string`  | Should be used together with `elements.buttons.type`.                                                                                                                                                                                            |
+| `elements.buttons.webview_height` | yes      | `string`  | Required only for the `webview` button`type`. Possible values: `compact`, `full`, `tall`.                                                                                                                                                        |
+| `elements.buttons.postback_id`    | yes      | `string`  | A description of the sent action. Describes the action sent via `send_rich_message_postback`. [More...](/extending-ui/extending-chat-widget/rich-messages/#getting-started)                                                                      |
+| `elements.buttons.user_ids`       | yes      | `array`   | Describes users that sent the postback with `"toggled": true`.                                                                                                                                                                                   |
 
 ### Response
 
-| Field                            | Returned   | Notes                                                               |
-| -------------------------------- | ---------- | ------------------------------------------------------------------- |
-| `id`                             | always     | Generated server-side                                               |
-| `custom_id`                      | optionally |                                                                     |
-| `type`                           | always     |                                                                     |
-| `author_id`                      | always     | Generated server-side                                               |
-| `created_at`                     | always     | Date & time format with a resolution of microseconds, `UTC string`. Generated server-side. |
-| `recipients`                     | always     |                                                                     |
-| `properties`                     | optionally |                                                                     |
-| `template_id`                    | always     |                                                                     |
-| `elements`                       | optionally |                                                                     |
-| `elements.title`                 | always     |                                                                     |
-| `elements.subtitle`              | always     |                                                                     |
-| `elements.image`                 | always     |                                                                     |
-| `elements.buttons`               | optionally |                                                                     |
-| `elements.buttons.text`          | always     |                                                                     |
-| `elements.buttons.type`          | always     |                                                                     |
-| `elements.buttons.value`         | always     |                                                                     |
-| `elements.buttons.webview_height`| always     | Unless button `type` is different than `webview`.                   |
-| `elements.buttons.postback_id`   | always     |                                                                     |
-| `elements.buttons.user_ids`      | always     |                                                                     |
+| Field                             | Returned   | Notes                                                                                      |
+| --------------------------------- | ---------- | ------------------------------------------------------------------------------------------ |
+| `id`                              | always     | Generated server-side                                                                      |
+| `custom_id`                       | optionally |                                                                                            |
+| `type`                            | always     |                                                                                            |
+| `author_id`                       | always     | Generated server-side                                                                      |
+| `created_at`                      | always     | Date & time format with a resolution of microseconds, `UTC string`. Generated server-side. |
+| `recipients`                      | always     |                                                                                            |
+| `properties`                      | optionally |                                                                                            |
+| `template_id`                     | always     |                                                                                            |
+| `elements`                        | optionally |                                                                                            |
+| `elements.title`                  | always     |                                                                                            |
+| `elements.subtitle`               | always     |                                                                                            |
+| `elements.image`                  | always     |                                                                                            |
+| `elements.buttons`                | optionally |                                                                                            |
+| `elements.buttons.text`           | always     |                                                                                            |
+| `elements.buttons.type`           | always     |                                                                                            |
+| `elements.buttons.value`          | always     |                                                                                            |
+| `elements.buttons.webview_height` | always     | Unless button `type` is different than `webview`.                                          |
+| `elements.buttons.postback_id`    | always     |                                                                                            |
+| `elements.buttons.user_ids`       | always     |                                                                                            |
 
 </Text>
 <Code>
@@ -532,7 +537,7 @@ Custom event is an event with customizable payload.
 
 ### Request
 
-| Field        | Required | Data type | Notes                                                               |                                                                                   |
+| Field        | Required | Data type | Notes                                                               |  |
 | ------------ | -------- | --------- | ------------------------------------------------------------------- |
 | `custom_id`  | no       | `string`  | You can give the event a custom ID.                                 |
 | `type`       | yes      | `string`  | Event type: `custom`                                                |
@@ -589,14 +594,14 @@ System message event is native system event sent in specific situations.
 
 ### Request
 
-| Field                 | Required  | Data type | Notes                                                                                          |
-| --------------------- | --------- |---------- | ---------------------------------------------------------------------------------------------: |
-| `custom_id`           | no        | `string`  | You can give the system message a custom ID.                                                   |
-| `type`                | yes       | `string`  | `system_message`                                                                               |
-| `text`                | no        | `string`  | Text displayed to recipients                                                                   |
-| `system_message_type` | yes       | `string`  | [System message type](#available-system-messages)                                              |
-| `recipients`          | no        | `string`  | It can be specified when sending system messages via the [**Send Event**](#send-event) method. Possible values: `all`, `agents`.|
-| `text_vars`           | no        | `object`  | Variables used in the text                                                                     |
+| Field                 | Required | Data type |                                                                                                                            Notes |
+| --------------------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------------------------: |
+| `custom_id`           | no       | `string`  |                                                                                     You can give the system message a custom ID. |
+| `type`                | yes      | `string`  |                                                                                                                 `system_message` |
+| `text`                | no       | `string`  |                                                                                                     Text displayed to recipients |
+| `system_message_type` | yes      | `string`  |                                                                                [System message type](#available-system-messages) |
+| `recipients`          | no       | `string`  | It can be specified when sending system messages via the [**Send Event**](#send-event) method. Possible values: `all`, `agents`. |
+| `text_vars`           | no       | `object`  |                                                                                                       Variables used in the text |
 
 ### Response
 
@@ -639,9 +644,9 @@ Here's the list of all system messages you might come across:
 
 <Section>
 
-|                        |                       |        |
-| ---------------------- | --------------------- | ------ |
-| <ul><li>[`agent_added`](#agent_added)</li> <li>[`agent_joined`](#agent_joined)</li> <li>[`agent_removed`](#agent_removed)</li> <li>[`archived_customer_disconnected`](#archived_customer_disconnected)</li> <li>[`chat_transferred`](#chat_transferred)</li> <li>[`customer_added`](#customer_added)</li> <li>[`customer_banned`](#customer_banned)</li> <li>[`customer_removed`](#customer_removed)</li> <li>[`manual_archived_agent`](#manual_archived_agent)</li> <li>[`manual_archived_customer`](#manual_archived_customer)</li> <li>[`rating.chat_commented`](#ratingchat_commented)</li><li>[`rating.chat_rated`](#ratingchat_rated)</li> </ul> | <ul><li>[`rating.chat_rating_canceled`](#ratingchat_rating_canceled)</li><li>[`routing.archived_deleted`](#routingarchived_deleted)</li><li>[`routing.archived_disconnected`](#routingarchived_disconnected)</li><li>[`routing.archived_inactive`](#routingarchived_inactive)</li><li>[`routing.archived_offline`](#routingarchived_offline)</li><li>[`routing.archived_other`](#routingarchived_other)</li><li>[`routing.archived_remotely_signed_out`](#routingarchived_remotely_signed_out)</li><li>[`routing.archived_signed_out`](#routingarchived_signed_out)</li><li>[`routing.assigned_deleted`](#routingassigned_deleted)</li><li>[`routing.assigned_disconnected`](#routingassigned_disconnected)</li><li>[`routing.assigned_inactive`](#routingassigned_inactive)</li><li>[`routing.assigned_other`](#routingassigned_other)</li></ul> | <ul><li>[`routing.assigned_remotely_signed_out`](#routingassigned_remotely_signed_out)</li><li>[`routing.assigned_signed_out`](#routingassigned_signed_out)</li> <li>[`routing.idle`](#routingidle)</li><li>[`routing.unassigned_deleted`](#routingunassigned_deleted)</li><li>[`routing.unassigned_disconnected`](#routingunassigned_disconnected)</li><li>[`routing.unassigned_other`](#routingunassigned_other)</li><li>[`routing.unassigned_remotely_signed_out`](#routingunassigned_remotely_signed_out)</li><li>[`routing.unassigned_signed_out`](#routingunassigned_signed_out)</li><li>[`system_archived`](#system_archived)</li><li>[`transcript_requested`](#transcript_requested)</li><li>[`transcript_sent`](#transcript_sent)</li></ul>
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <ul><li>[`agent_added`](#agent_added)</li> <li>[`agent_joined`](#agent_joined)</li> <li>[`agent_removed`](#agent_removed)</li> <li>[`archived_customer_disconnected`](#archived_customer_disconnected)</li> <li>[`chat_transferred`](#chat_transferred)</li> <li>[`customer_added`](#customer_added)</li> <li>[`customer_banned`](#customer_banned)</li> <li>[`customer_removed`](#customer_removed)</li> <li>[`manual_archived_agent`](#manual_archived_agent)</li> <li>[`manual_archived_customer`](#manual_archived_customer)</li> <li>[`rating.chat_commented`](#ratingchat_commented)</li><li>[`rating.chat_rated`](#ratingchat_rated)</li> </ul> | <ul><li>[`rating.chat_rating_canceled`](#ratingchat_rating_canceled)</li><li>[`routing.archived_deleted`](#routingarchived_deleted)</li><li>[`routing.archived_disconnected`](#routingarchived_disconnected)</li><li>[`routing.archived_inactive`](#routingarchived_inactive)</li><li>[`routing.archived_offline`](#routingarchived_offline)</li><li>[`routing.archived_other`](#routingarchived_other)</li><li>[`routing.archived_remotely_signed_out`](#routingarchived_remotely_signed_out)</li><li>[`routing.archived_signed_out`](#routingarchived_signed_out)</li><li>[`routing.assigned_deleted`](#routingassigned_deleted)</li><li>[`routing.assigned_disconnected`](#routingassigned_disconnected)</li><li>[`routing.assigned_inactive`](#routingassigned_inactive)</li><li>[`routing.assigned_other`](#routingassigned_other)</li></ul> | <ul><li>[`routing.assigned_remotely_signed_out`](#routingassigned_remotely_signed_out)</li><li>[`routing.assigned_signed_out`](#routingassigned_signed_out)</li> <li>[`routing.idle`](#routingidle)</li><li>[`routing.unassigned_deleted`](#routingunassigned_deleted)</li><li>[`routing.unassigned_disconnected`](#routingunassigned_disconnected)</li><li>[`routing.unassigned_other`](#routingunassigned_other)</li><li>[`routing.unassigned_remotely_signed_out`](#routingunassigned_remotely_signed_out)</li><li>[`routing.unassigned_signed_out`](#routingunassigned_signed_out)</li><li>[`system_archived`](#system_archived)</li><li>[`transcript_requested`](#transcript_requested)</li><li>[`transcript_sent`](#transcript_sent)</li></ul> |
 
 </Section>
 
@@ -695,14 +700,14 @@ Here's the list of all system messages you might come across:
 
 #### `manual_archived_agent`
 
-|           Content           |                                    Generated when |
-| :-------------------------: | ------------------------------------------------: |
+|           Content           |                                       Generated when |
+| :-------------------------: | ---------------------------------------------------: |
 | _%agent% archived the chat_ | Agent closed chat via the `deactivate_chat` request. |
 
 #### `manual_archived_customer`
 
-|            Content             |                                       Generated when |
-| :----------------------------: | ---------------------------------------------------: |
+|            Content             |                                          Generated when |
+| :----------------------------: | ------------------------------------------------------: |
 | _%customer% archived the chat_ | Customer closed chat via the `deactivate_chat` request. |
 
 #### `rating.chat_commented`
@@ -1259,17 +1264,17 @@ curl -X POST \
 
 ## Available methods
 
-|                 |                                                                                                                                                                                                                                                                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Chats**       | [`list_chats`](#list-chats) [`get_chat_threads_summary`](#get-chat-threads-summary) [`get_chat_threads`](#get-chat-threads) [`list_archives`](#list-archives) [`start_chat`](#start-chat) [`activate_chat`](#activate-chat) [`deactivate_chat`](#deactivate-chat) [`follow_chat`](#follow-chat) [`unfollow_chat`](#unfollow-chat)                 |
-| **Chat access** | [`grant_chat_access`](#grant-chat-access) [`revoke_chat_access`](#revoke-chat-access) [`set_chat_access`](#set-chat-access) [`transfer_chat`](#transfer-chat)                                                                                                                                                                                           |
-| **Chat users**  | [`add_user_to_chat`](#add-user-to-chat) [`remove_user_from_chat`](#remove-user-from-chat)                                                                                                                                                                                                                                                               |
-| **Events**      | [`send_event`](#send-event) [`upload_file`](#upload-file) [`send_rich_message_postback`](#send-rich-message-postback)                                                                                                                                                                                                                                   |
+|                 |                                                                                                                                                                                                                                                                                                                                     |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Chats**       | [`list_chats`](#list-chats) [`get_chat_threads_summary`](#get-chat-threads-summary) [`get_chat_threads`](#get-chat-threads) [`list_archives`](#list-archives) [`start_chat`](#start-chat) [`activate_chat`](#activate-chat) [`deactivate_chat`](#deactivate-chat) [`follow_chat`](#follow-chat) [`unfollow_chat`](#unfollow-chat)   |
+| **Chat access** | [`grant_chat_access`](#grant-chat-access) [`revoke_chat_access`](#revoke-chat-access) [`set_chat_access`](#set-chat-access) [`transfer_chat`](#transfer-chat)                                                                                                                                                                       |
+| **Chat users**  | [`add_user_to_chat`](#add-user-to-chat) [`remove_user_from_chat`](#remove-user-from-chat)                                                                                                                                                                                                                                           |
+| **Events**      | [`send_event`](#send-event) [`upload_file`](#upload-file) [`send_rich_message_postback`](#send-rich-message-postback)                                                                                                                                                                                                               |
 | **Properties**  | [`update_chat_properties`](#update-chat-properties) [`delete_chat_properties`](#delete-chat-properties) [`update_thread_properties`](#update-thread-properties) [`delete_thread_properties`](#delete-thread-properties) [`update_event_properties`](#update-event-properties) [`delete_event_properties`](#delete-event-properties) |
 | **Thread tags** | [`tag_thread`](#tag-thread) [`untag_thread`](#untag-thread)                                                                                                                                                                                                                                                                         |
-| **Customers**   | [`get_customer`](#get-customer) [`list_customers`](#list-customers) [`create_customer`](#create-customer) [`update_customer`](#update-customer) [`ban_customer`](#ban-customer)                                                                                                                                                                           |
-| **Status**      | [`set_routing_status`](#set-routing-status)                                                                                                                                                                                                                                                                                                             |
-| **Other**       | [`mark_events_as_seen`](#mark-events-as-seen) [`send_typing_indicator`](#send-typing-indicator) [`multicast`](#multicast) [`list_agents_for_transfer`](#list-agents-for-transfer)                                                                                                                                                                         |
+| **Customers**   | [`get_customer`](#get-customer) [`list_customers`](#list-customers) [`create_customer`](#create-customer) [`update_customer`](#update-customer) [`ban_customer`](#ban-customer)                                                                                                                                                     |
+| **Status**      | [`set_routing_status`](#set-routing-status)                                                                                                                                                                                                                                                                                         |
+| **Other**       | [`mark_events_as_seen`](#mark-events-as-seen) [`send_typing_indicator`](#send-typing-indicator) [`multicast`](#multicast) [`list_agents_for_transfer`](#list-agents-for-transfer)                                                                                                                                                   |
 
 ## Chats
 
@@ -1283,14 +1288,14 @@ It returns [summaries](#chat-summaries) of the chats an Agent has access to.
 #### Specifics
 
 |                        |                                                            |
-|------------------------|------------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/list_chats` |
 | **Required scopes**    | `chats--all:ro` `chats--access:ro` `chats--my:ro`          |
 | **RTM API equivalent** | [`list_chats`](rtm-reference/#list-chats)                  |
 | **Webhook**            | -                                                          |
 
 | Parameter                                             | Required | Type     | Notes                                                                                       |
-|-------------------------------------------------------|----------|----------|---------------------------------------------------------------------------------------------|
+| ----------------------------------------------------- | -------- | -------- | ------------------------------------------------------------------------------------------- |
 | `filters`                                             | No       | `object` | Mustn't change between requests for subsequent pages. Otherwise, the behavior is undefined. |
 | `filters.include_active`                              | No       | `bool`   | Defines if the returned chat summary includes active chats; default: `true`.                |
 | `filters.include_chats_without_threads`               | No       | `bool`   | Defines if the returned chat summary includes chats without any threads; default: `true`.   |
@@ -1410,7 +1415,7 @@ curl -X POST \
 #### Request
 
 | Parameter    | Required | Data type | Notes                                                                                  |
-|--------------|----------|-----------|----------------------------------------------------------------------------------------|
+| ------------ | -------- | --------- | -------------------------------------------------------------------------------------- |
 | `chat_id`    | Yes      | `string`  |                                                                                        |
 | `sort_order` | No       | `string`  | Possible values: `asc` - oldest chats first and `desc` - newest chats first (default). |
 | `limit`      | No       | `number`  | Default: 10, maximum: 100                                                              |
@@ -1583,7 +1588,7 @@ The list classification is based on threads; 1 chat per 1 thread. Thus, the same
 #### Specifics
 
 |                        |                                                               |
-|------------------------|---------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/list_archives` |
 | **Required scopes**    | `chats--all:ro` `chats--access:ro`                            |
 | **RTM API equivalent** | [`list_archives`](rtm-reference/#list-archives)               |
@@ -1591,23 +1596,23 @@ The list classification is based on threads; 1 chat per 1 thread. Thus, the same
 
 #### Request
 
-| Parameter                                             | Required | Data type | Notes                                                                                     |
-| ----------------------------------------------------- | -------- | --------- | ----------------------------------------------------------------------------------------- |
-| `filters`                                             | No       | `object`  |                                                                                           |
-| `filters.query`                                       | No       | `string`  |                                                                                           |
-| `filters.date_from`                                   | No       | `string`  | `YYYY-MM-DD` format                                                                       |
-| `filters.date_to`                                     | No       | `string`  | `YYYY-MM-DD` format                                                                       |
-| `filters.thread_ids`                                  | No       | `array`   | Array of thread IDs. Cannot be used with other filters or pagination; max array size: 20. |
-| `filters.group_ids`                                   | No       | `array`   | Array of group IDs. Max array size: 200                                                   |
-| `filters.properties.<namespace>.<name>.<filter_type>` | No       | `any`     | **\* described below**                                                                    |
-| `filters.agents.<filter_type>`                        | No       | `any`     |  `exists` set to `false` will return unassigned chats; `true` will return the assigned ones.|
-| `filters.tags.<filter_type>`                          | No       | `any`     |                                                                                           |
-| `filters.sales.<filter_type>`                         | No       | `any`     |                                                                                           |
-| `filters.goals.<filter_type>`                         | No       | `any`     |                                                                                           |
-| `filters.surveys.<survey>`                            | No       | `array`   | **\*\*** **described below**                                                              |
-| `pagination`                                          | No       | `object`  |                                                                                           |
-| `pagination.page`                                     | No       | `number`  | Default: 1, min: 1, max: 1000                                                             |
-| `pagination.limit`                                    | No       | `number`  | Default: 25, min: 0, max: 100                                                             |
+| Parameter                                             | Required | Data type | Notes                                                                                       |
+| ----------------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------- |
+| `filters`                                             | No       | `object`  |                                                                                             |
+| `filters.query`                                       | No       | `string`  |                                                                                             |
+| `filters.date_from`                                   | No       | `string`  | `YYYY-MM-DD` format                                                                         |
+| `filters.date_to`                                     | No       | `string`  | `YYYY-MM-DD` format                                                                         |
+| `filters.thread_ids`                                  | No       | `array`   | Array of thread IDs. Cannot be used with other filters or pagination; max array size: 20.   |
+| `filters.group_ids`                                   | No       | `array`   | Array of group IDs. Max array size: 200                                                     |
+| `filters.properties.<namespace>.<name>.<filter_type>` | No       | `any`     | **\* described below**                                                                      |
+| `filters.agents.<filter_type>`                        | No       | `any`     | `exists` set to `false` will return unassigned chats; `true` will return the assigned ones. |
+| `filters.tags.<filter_type>`                          | No       | `any`     |                                                                                             |
+| `filters.sales.<filter_type>`                         | No       | `any`     |                                                                                             |
+| `filters.goals.<filter_type>`                         | No       | `any`     |                                                                                             |
+| `filters.surveys.<survey>`                            | No       | `array`   | **\*\*** **described below**                                                                |
+| `pagination`                                          | No       | `object`  |                                                                                             |
+| `pagination.page`                                     | No       | `number`  | Default: 1, min: 1, max: 1000                                                               |
+| `pagination.limit`                                    | No       | `number`  | Default: 25, min: 0, max: 100                                                               |
 
 **\*)**
 `<filter_type>` can take the following values:
@@ -1722,7 +1727,7 @@ Starts a chat.
 #### Specifics
 
 |                        |                                                                                          |
-|------------------------|------------------------------------------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/start_chat`                               |
 | **Required scopes \*** | `chats.conversation--all:rw` `chats.conversation--access:rw` `chats.conversation--my:rw` |
 | **RTM API equivalent** | [`start_chat`](rtm-reference/#start-chat)                                                |
@@ -1794,7 +1799,7 @@ Restarts an archived chat.
 #### Specifics
 
 |                        |                                                                                          |
-|------------------------|------------------------------------------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/activate_chat`                            |
 | **Required scopes \*** | `chats.conversation--all:rw` `chats.conversation--access:rw` `chats.conversation--my:rw` |
 | **RTM API equivalent** | [`activate_chat`](rtm-reference/#activate-chat)                                          |
@@ -1820,7 +1825,7 @@ When `chat.users` is defined, one of following scopes is required:
 | `chat.users.type`        | Yes      | `string`   | `agent` or `customer`                                                                                    |
 | `chat.thread`            | No       | `object`   |                                                                                                          |
 | `chat.thread.events`     | No       | `array`    | Initial chat events array                                                                                |
-| `chat.thread.properties` | No       | `object`   | Initial thread properties                                                                           |
+| `chat.thread.properties` | No       | `object`   | Initial thread properties                                                                                |
 | `continuous`             | No       | `bool`     | Sets a chat to the continuous mode. When unset, leaves the mode unchanged.                               |
 
 #### Response
@@ -1869,7 +1874,7 @@ Deactivates a chat by closing the currently open thread. Sending messages to thi
 #### Specifics
 
 |                        |                                                                       |
-|------------------------|-----------------------------------------------------------------------|
+| ---------------------- | --------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/deactivate_chat`       |
 | **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                     |
 | **RTM API equivalent** | [`deactivate_chat`](rtm-reference/#deactivate-chat)                   |
@@ -2002,21 +2007,21 @@ Grants access to a new chat without overwriting the existing ones.
 
 #### Specifics
 
-|                        |                                                                             |
-| ---------------------- | --------------------------------------------------------------------------- |
-| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/grant_chat_access`           |
-| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                           |
-| **RTM API equivalent** | [`grant_chat_access`](rtm-reference/#grant-chat-access)                     |
+|                        |                                                                                  |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/grant_chat_access`                |
+| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                                |
+| **RTM API equivalent** | [`grant_chat_access`](rtm-reference/#grant-chat-access)                          |
 | **Webhook**            | [`chat_access_granted`](/management/configuration-api/v3.2/#chat_access_granted) |
 
 #### Request
 
-| Parameter     | Required | Data ype | Notes                |
-| ------------- | -------- | -------- | -------------------- |
-| `id`          | Yes      | `string` | Chat Id              |
-| `access`      | Yes      | `object` |                      |
-| `access.type` | Yes      | `string` | `group`              |
-| `access.id`   | Yes      | any      |                      |
+| Parameter     | Required | Data ype | Notes   |
+| ------------- | -------- | -------- | ------- |
+| `id`          | Yes      | `string` | Chat Id |
+| `access`      | Yes      | `object` |         |
+| `access.type` | Yes      | `string` | `group` |
+| `access.id`   | Yes      | any      |         |
 
 #### Response
 
@@ -2051,21 +2056,21 @@ https://api.livechatinc.com/v3.2/agent/action/grant_chat_access \
 
 #### Specifics
 
-|                        |                                                                             |
-| ---------------------- | --------------------------------------------------------------------------- |
-| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/revoke_chat_access`          |
-| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                           |
-| **RTM API equivalent** | [`revoke_chat_access`](rtm-reference/#revoke-chat-access)                   |
+|                        |                                                                                  |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/revoke_chat_access`               |
+| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                                |
+| **RTM API equivalent** | [`revoke_chat_access`](rtm-reference/#revoke-chat-access)                        |
 | **Webhook**            | [`chat_access_revoked`](/management/configuration-api/v3.2/#chat_access_revoked) |
 
 #### Request
 
-| Parameter     | Required | Data type | Notes                |
-| ------------- | -------- | --------- | -------------------- |
-| `id`          | Yes      | `string`  | Chat Id              |
-| `access`      | Yes      | `object`  |                      |
-| `access.type` | Yes      | `string`  | `group` or `agent`   |
-| `access.id`   | Yes      | `number`  |                      |
+| Parameter     | Required | Data type | Notes              |
+| ------------- | -------- | --------- | ------------------ |
+| `id`          | Yes      | `string`  | Chat Id            |
+| `access`      | Yes      | `object`  |                    |
+| `access.type` | Yes      | `string`  | `group` or `agent` |
+| `access.id`   | Yes      | `number`  |                    |
 
 #### Response
 
@@ -2102,21 +2107,21 @@ Grants access to a new chat overwriting the existing ones.
 
 #### Specifics
 
-|                        |                                                                        |
-| ---------------------- | ---------------------------------------------------------------------- |
-| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/set_chat_access`        |
-| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                      |
-| **RTM API equivalent** | [`set_chat_access`](rtm-reference/#set-chat-access)                    |
-| **Webhook**            | [`chat_access_set`](/management/configuration-api/v3.2/#chat_access_set)    |
+|                        |                                                                          |
+| ---------------------- | ------------------------------------------------------------------------ |
+| **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/set_chat_access`          |
+| **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                        |
+| **RTM API equivalent** | [`set_chat_access`](rtm-reference/#set-chat-access)                      |
+| **Webhook**            | [`chat_access_set`](/management/configuration-api/v3.2/#chat_access_set) |
 
 #### Request
 
-| Request object | Required | Type     | Notes                |
-| -------------- | -------- | -------- | -------------------- |
-| `id`           | Yes      | `string` | Chat id              |
-| `access`       | Yes      | `object` |                      |
-| `access.type`  | Yes      | `string` | `group` or `agent`   |
-| `access.id`    | Yes      | `number` |                      |
+| Request object | Required | Type     | Notes              |
+| -------------- | -------- | -------- | ------------------ |
+| `id`           | Yes      | `string` | Chat id            |
+| `access`       | Yes      | `object` |                    |
+| `access.type`  | Yes      | `string` | `group` or `agent` |
+| `access.id`    | Yes      | `number` |                    |
 
 #### Response
 
@@ -2164,7 +2169,7 @@ Transfers a chat to an Agent or a group.
 
 | Parameter     | Required | Data ype | Notes                                                                                                                           |
 | ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `chat_id`     | Yes      | `string` | Chat Id                                                                                                                     |
+| `chat_id`     | Yes      | `string` | Chat Id                                                                                                                         |
 | `target`      | No       | `object` | If missing, chat will be transferred within the current group.                                                                  |
 | `target.type` | Yes      | `string` | `group` or `agent`                                                                                                              |
 | `target.ids`  | Yes      | `array`  | `group` or `agent` IDs array                                                                                                    |
@@ -2575,7 +2580,7 @@ No response payload (`200 OK`).
 #### Specifics
 
 |                        |                                                                                          |
-|------------------------|------------------------------------------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/update_thread_properties`                 |
 | **Required scopes**    | `chats.conversation--all:rw` `chats.conversation--access:rw` `chats.conversation--my:rw` |
 | **RTM API equivalent** | [`update_thread_properties`](rtm-reference/#update-thread-properties)                    |
@@ -2625,7 +2630,7 @@ curl -X POST \
 #### Specifics
 
 |                        |                                                                                          |
-|------------------------|------------------------------------------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/delete_thread_properties`                 |
 | **Required scopes**    | `chats.conversation--all:rw` `chats.conversation--access:rw` `chats.conversation--my:rw` |
 | **RTM API equivalent** | [`delete_thread_properties`](rtm-reference/#delete-thread-properties)                    |
@@ -2634,7 +2639,7 @@ curl -X POST \
 #### Request
 
 | Parameter    | Required | Data type | Notes                                              |
-|--------------|----------|-----------|----------------------------------------------------|
+| ------------ | -------- | --------- | -------------------------------------------------- |
 | `chat_id`    | Yes      | `string`  | Id of the chat you want to delete properties of.   |
 | `thread_id`  | Yes      | `string`  | Id of the thread you want to delete properties of. |
 | `properties` | Yes      | `object`  | Thread properties to delete.                       |
@@ -2781,7 +2786,7 @@ https://api.livechatinc.com/v3.2/agent/action/delete_event_properties \
 #### Specifics
 
 |                        |                                                                 |
-|------------------------|-----------------------------------------------------------------|
+| ---------------------- | --------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/tag_thread`      |
 | **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`               |
 | **RTM API equivalent** | [`tag_thread`](rtm-reference/#tag-thread)                       |
@@ -2827,7 +2832,7 @@ https://api.livechatinc.com/v3.2/agent/action/tag_thread \
 #### Specifics
 
 |                        |                                                                     |
-|------------------------|---------------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/untag_thread`        |
 | **Required scopes**    | `chats--all:rw` `chats--access:rw` `chats--my:rw`                   |
 | **RTM API equivalent** | [`untag_thread`](rtm-reference/#untag-thread)                       |
@@ -2989,7 +2994,7 @@ It returns the list of Customers.
 #### Specifics
 
 |                        |                                                                |
-|------------------------|----------------------------------------------------------------|
+| ---------------------- | -------------------------------------------------------------- |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/list_customers` |
 | **Required scopes**    | `customers:ro`                                                 |
 | **RTM API equivalent** | [`list_customers`](rtm-reference/#list_customers)              |
@@ -3000,7 +3005,7 @@ It returns the list of Customers.
 All parameters are optional.
 
 | Parameter                                                                      | Data type | Notes                     |
-|--------------------------------------------------------------------------------|-----------|---------------------------|
+| ------------------------------------------------------------------------------ | --------- | ------------------------- |
 | `page_id`                                                                      | `string`  |                           |
 | `limit`                                                                        | `number`  | Default: 10, maximum: 100 |
 | `sort_order` **\***                                                            | `string`  | Default: `desc`           |
@@ -3424,7 +3429,7 @@ For example, it could be used in an app that sends notifications to Agents or Cu
 #### Request
 
 | Parameter    | Required | Data type | Notes                     |
-|--------------|----------|-----------|---------------------------|
+| ------------ | -------- | --------- | ------------------------- |
 | `recipients` | Yes      | `object`  | **\***                    |
 | `content`    | Yes      | `any`     | A JSON message to be sent |
 | `type`       | No       | `string`  | Multicast message type    |
@@ -3495,7 +3500,7 @@ It returns the Agents you can transfer a chat to. Agents are sorted ascendingly 
 #### Specifics
 
 |                        |                                                                          |
-|------------------------|--------------------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------------------ |
 | **Method URL**         | `https://api.livechatinc.com/v3.2/agent/action/list_agents_for_transfer` |
 | **Required scopes**    | -                                                                        |
 | **RTM API equivalent** | [`list_agents_for_transfer`](rtm-reference/#list-agents-for-transfer)    |
