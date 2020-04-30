@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import innerText from 'react-innertext';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { CopyIcon } from '../core/icons';
+import innerText from "react-innertext";
+import CopyToClipboardIcon from "./CopyToClipboardIcon";
 
 const StickyWrapper = styled.div`
   position: sticky;
@@ -56,6 +55,7 @@ const CodeSampleWrapper = styled.div`
 const CodeSampleTopbar = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 5px 15px;
   height: 41px;
   background-color: #383f54;
@@ -64,12 +64,14 @@ const CodeSampleTopbar = styled.div`
   code {
     font-size: 12px;
     max-width: 100%;
+    flex-grow: 2;
   }
 `;
 
 const ResponseTopbar = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 5px 15px;
   height: 42px;
   background-color: #dee5e8;
@@ -77,6 +79,10 @@ const ResponseTopbar = styled.div`
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+`;
+
+const ResponseTopbarTitle = styled.span`
+  flex-grow: 1;
 `;
 
 const Body = styled.div`
@@ -139,39 +145,12 @@ export const Text = styled.div`
   overflow-x: auto;
 `;
 
-export const TextWrapper = styled.div`
-justify-content: space-between;
-`;
-
 export const FixedTdWidth = styled.div`
   th:first-of-type,
   td:first-of-type {
     width: 200px;
   }
 `;
-
-export const CopyIconWrapper = styled.div`
-:hover {
-  cursor: pointer
-}
-`;
-
-export const CopyToClipboardIcon = ({ text }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false)
-    }, 3000);
-  };
-
-  return (
-    <CopyToClipboard onCopy={handleCopy} text={text}>
-      {copied ? <TextWrapper><Text>Copied!</Text></TextWrapper> : <CopyIconWrapper><CopyIcon /></CopyIconWrapper>}
-    </CopyToClipboard>
-  );
-};
 
 export const CodeSample = ({ path, children }) => {
   const childrenArray = React.Children.toArray(children);
@@ -188,8 +167,8 @@ export const CodeSample = ({ path, children }) => {
           <code>{path}</code>
           <CopyToClipboardIcon text={innerText(selectedChild)} />
           {count > 1 && (
-            <SelectLanguage onChange={e => setSample(e.target.value)}>
-              {childrenArray.map(children => (
+            <SelectLanguage onChange={(e) => setSample(e.target.value)}>
+              {childrenArray.map((children) => (
                 <option key={children.props.label}>
                   {children.props.label}
                 </option>
@@ -206,7 +185,12 @@ export const CodeSample = ({ path, children }) => {
 export const CodeResponse = ({ title = "Response", children }) => {
   return (
     <CodeResponseWrapper>
-      {title && <ResponseTopbar>{title} <CopyToClipboardIcon text={innerText(children)} /></ResponseTopbar>}
+      {title && (
+        <ResponseTopbar>
+          <ResponseTopbarTitle>{title}</ResponseTopbarTitle>{" "}
+          <CopyToClipboardIcon text={innerText(children)} />
+        </ResponseTopbar>
+      )}
       <Body>{children}</Body>
     </CodeResponseWrapper>
   );
