@@ -155,7 +155,6 @@ export const FixedTdWidth = styled.div`
 export const CopyAndLanguageWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 `;
 
 export const CodeSample = ({ path, children }) => {
