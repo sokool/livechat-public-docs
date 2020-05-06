@@ -152,11 +152,6 @@ export const FixedTdWidth = styled.div`
   }
 `;
 
-export const CopyAndLanguageWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const CodeSample = ({ path, children }) => {
   const childrenArray = React.Children.toArray(children);
   const count = React.Children.count(children);
@@ -170,18 +165,16 @@ export const CodeSample = ({ path, children }) => {
       {path && (
         <CodeSampleTopbar>
           <code>{path}</code>
-          <CopyAndLanguageWrapper>
-            {count > 1 && (
-              <SelectLanguage onChange={(e) => setSample(e.target.value)}>
-                {childrenArray.map((children) => (
-                  <option key={children.props.label}>
-                    {children.props.label}
-                  </option>
-                ))}
-              </SelectLanguage>
-            )}
-            <CopyToClipboardIcon text={innerText(selectedChild)} />
-          </CopyAndLanguageWrapper>
+          {count > 1 && (
+            <SelectLanguage onChange={(e) => setSample(e.target.value)}>
+              {childrenArray.map((children) => (
+                <option key={children.props.label}>
+                  {children.props.label}
+                </option>
+              ))}
+            </SelectLanguage>
+          )}
+          <CopyToClipboardIcon text={innerText(selectedChild)} />
         </CodeSampleTopbar>
       )}
       <Body>{selectedChild}</Body>
@@ -205,6 +198,6 @@ export const CodeResponse = ({ title = "Response", children }) => {
 
 export const Code = ({ children }) => (
   <CodeWrapper>
-    <StickyWrapper>{children} </StickyWrapper>
+    <StickyWrapper>{children}</StickyWrapper>
   </CodeWrapper>
 );
